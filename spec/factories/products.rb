@@ -12,11 +12,14 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
-class Product < ActiveRecord::Base
-  has_many :order_items
-  has_many :orders, through: :order_items
+FactoryBot.define do
+  factory :product do
+    name { Faker::Coffee.variety }
+    code { Faker::Alphanumeric.alphanumeric(number: 6) }
+    price { rand(1..100.0).round(3) }
 
-  validates :name, :code, :price, presence: true
-  validates :name, uniqueness: true
-  validates :code, uniqueness: true
+    trait(:with_description) do
+      description { Faker::Food.description }
+    end
+  end
 end

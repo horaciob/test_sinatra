@@ -5,6 +5,8 @@ require:
 
 AllCops:
   NewCops: enable
+  Excludes:
+    - db/schema.rb
 
 Style/Documentation:
   Enabled: false
@@ -12,3 +14,5 @@ RSpec/Rails/InferredSpecType:
   Enabled: false
 RSpec/MultipleExpectations:
   Max: 3
+RSpec/NamedSubject:
+  Enabled: false

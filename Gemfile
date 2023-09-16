@@ -16,7 +16,7 @@ gem 'zeitwerk'
 
 group :development, :test do
   gem 'annotate'
-  gem 'debug'
+  gem 'debug', '>= 1.0.0'
   gem 'dotenv'
   gem 'faker'
 end

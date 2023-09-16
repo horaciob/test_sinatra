@@ -157,7 +157,7 @@ DEPENDENCIES
   activerecord
   annotate
   database_cleaner
-  debug
+  debug (>= 1.0.0)
   dotenv
   factory_bot
   faker
