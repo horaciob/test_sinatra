@@ -14,7 +14,7 @@
 #
 FactoryBot.define do
   factory :product do
-    name { Faker::Coffee.variety }
+    name { Faker::Food.dish }
     code { Faker::Alphanumeric.alphanumeric(number: 6) }
     price { rand(1..100.0).round(3) }
 
