@@ -1,0 +1,14 @@
+require:
+  - rubocop-factory_bot
+  - rubocop-rake
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+
+Style/Documentation:
+  Enabled: false
+RSpec/Rails/InferredSpecType:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Max: 3
