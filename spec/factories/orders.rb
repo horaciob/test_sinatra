@@ -5,7 +5,7 @@
 # Table name: orders
 #
 #  id         :integer          not null, primary key
-#  total      :decimal(100, 3)
+#  total      :float
 #  status     :string           default("open")
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

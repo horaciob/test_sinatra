@@ -9,9 +9,9 @@
 #  product_code               :string
 #  quantity                   :integer          default(1)
 #  discount_eligible_quantity :integer
-#  original_product_price     :decimal(100, 3)
-#  total_price                :decimal(100, 3)
-#  disccount                  :decimal(100, 3)
+#  original_product_price     :float
+#  total_price                :float
+#  discount                   :float
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #
