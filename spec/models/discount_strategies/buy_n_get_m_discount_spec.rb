@@ -2,6 +2,8 @@
 
 RSpec.describe DiscountStrategies::BuyNGetMDiscount do
   describe '#apply' do
+    subject { discount.apply }
+
     context 'when it has 2 x 1' do
       let(:discount) do
         described_class.new(order_item:, buy: 1, free_amount: 1)
@@ -14,10 +16,8 @@ RSpec.describe DiscountStrategies::BuyNGetMDiscount do
         end
 
         it 'gets 1 for free' do
-          discount.apply
-
-          expect(order_item.discount).to eq(10.0)
-          expect(order_item.discount_eligible_quantity).to eq(0)
+          expect(subject[:discount_amount]).to eq(10.0)
+          expect(subject[:used_items]).to eq(2)
         end
       end
 
@@ -28,10 +28,8 @@ RSpec.describe DiscountStrategies::BuyNGetMDiscount do
         end
 
         it 'gets 1 free item' do
-          discount.apply
-
-          expect(order_item.discount).to eq(10.0)
-          expect(order_item.discount_eligible_quantity).to eq(1)
+          expect(subject[:discount_amount]).to eq(10.0)
+          expect(subject[:used_items]).to eq(2)
         end
       end
 
@@ -42,10 +40,8 @@ RSpec.describe DiscountStrategies::BuyNGetMDiscount do
         end
 
         it 'gets 2 free item' do
-          discount.apply
-
-          expect(order_item.discount).to eq(20.0)
-          expect(order_item.discount_eligible_quantity).to eq(0)
+          expect(subject[:discount_amount]).to eq(20.0)
+          expect(subject[:used_items]).to eq(4)
         end
       end
 
@@ -56,10 +52,8 @@ RSpec.describe DiscountStrategies::BuyNGetMDiscount do
         end
 
         it 'gets 500 free item' do
-          discount.apply
-
-          expect(order_item.discount).to eq(5000.0)
-          expect(order_item.discount_eligible_quantity).to eq(1)
+          expect(subject[:discount_amount]).to eq(5000.0)
+          expect(subject[:used_items]).to eq(1000)
         end
       end
     end
@@ -76,10 +70,8 @@ RSpec.describe DiscountStrategies::BuyNGetMDiscount do
         end
 
         it 'gets 14 for free' do
-          discount.apply
-
-          expect(order_item.discount).to eq(140.0)
-          expect(order_item.discount_eligible_quantity).to eq(5)
+          expect(subject[:discount_amount]).to eq(140.0)
+          expect(subject[:used_items]).to eq(98)
         end
       end
     end
@@ -90,11 +82,12 @@ RSpec.describe DiscountStrategies::BuyNGetMDiscount do
                             original_product_price: 10.0, discount: 0)
       end
 
-      it 'does not apply the discount' do
-        expect(order_item).not_to receive(:notify_discount)
+      let(:discount) do
+        described_class.new(order_item:, buy: 10, free_amount: 1)
+      end
 
-        discount = described_class.new(order_item:, buy: 3, free_amount: 2)
-        discount.apply
+      it 'does not apply the discount' do
+        expect(subject).to be_falsey
       end
     end
   end

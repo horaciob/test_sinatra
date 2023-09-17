@@ -14,9 +14,8 @@ module DiscountStrategies
       free_products = order_item.discount_eligible_quantity / (buy + free_amount)
       discount_amount = free_products * order_item.original_product_price
       used_items = (buy + free_amount) * free_products
-      order_item.notify_discount(discount_amount, used_items)
 
-      order_item
+      { discount_amount:, used_items: }
     end
 
     private
