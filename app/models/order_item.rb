@@ -19,8 +19,6 @@ class OrderItem < ActiveRecord::Base
   belongs_to :order
   belongs_to :product, primary_key: 'code', foreign_key: 'product_code'
 
-  attr_accessor :discount
-
   after_save :calculate_totals
 
   def add_more_product(amount:)
@@ -28,7 +26,7 @@ class OrderItem < ActiveRecord::Base
     calculate_totals
   end
 
-  def notify_discount(discount_amount, used_items)
+  def notify_discount(discount_amount:, used_items:)
     self.discount += discount_amount
     self.discount_eligible_quantity -= used_items
   end

@@ -16,7 +16,7 @@
 #  updated_at                 :datetime         not null
 #
 RSpec.describe OrderItem, type: :model do
-  subject { build(:order_item, :with_product, quantity: 10) }
+  subject { build(:order_item, :with_product, discount: 0, quantity: 10, discount_eligible_quantity: 10) }
 
   describe '#add_more_product' do
     context 'when add 3 more products' do
@@ -54,6 +54,22 @@ RSpec.describe OrderItem, type: :model do
 
       it 'updates total_price' do
         expect(subject.total_price).to be_within(0.0001).of(7 * subject.product.price)
+      end
+    end
+
+    describe '#notify_discount' do
+      context 'when a discount is notified' do
+        before do
+          subject.notify_discount(discount_amount: 3.0, used_items: 6)
+        end
+
+        it 'updates discount amount' do
+          expect(subject.discount).to eq 3.0
+        end
+
+        it 'updates discount_eligible_quantity' do
+          expect(subject.discount_eligible_quantity).to eq 4
+        end
       end
     end
 

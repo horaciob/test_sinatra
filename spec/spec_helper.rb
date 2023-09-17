@@ -5,7 +5,7 @@ require_relative '../app'
 
 require 'simplecov'
 require 'simplecov-console'
-
+# SimpleCov.formatter = SimpleCov::Formatter::Console
 SimpleCov.start
 
 DatabaseCleaner.strategy = :truncation
