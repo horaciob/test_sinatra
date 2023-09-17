@@ -10,6 +10,8 @@ AllCops:
 
 Style/Documentation:
   Enabled: false
+Lint/MissingSuper:
+  Enabled: false
 RSpec/Rails/InferredSpecType:
   Enabled: false
 RSpec/MultipleExpectations:

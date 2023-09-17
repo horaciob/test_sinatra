@@ -14,19 +14,19 @@ RSpec.describe Order, type: :model do
   context 'when an order change his status to close' do
     subject { create(:order, status: 'open') }
 
-    let!(:product1) { create(:product, price: 10.01) }
-    let!(:product2) { create(:product, price: 3.03) }
+    let!(:coffee_test) { create(:product, name: 'Coffee', price: 10.01) }
+    let!(:tea_test) { create(:product, name: 'Tea', price: 3.03) }
 
-    let!(:order_item1) do
+    let!(:order_item_coffee) do
       create(:order_item,
              order: subject,
-             product: product1,
+             product: coffee_test,
              total_price: 10.0,
              discount: 3.0)
     end
-    let!(:order_item2) do
+    let!(:order_item_tea) do
       create(:order_item, order: subject,
-                          product: product2,
+                          product: tea_test,
                           total_price: 3.3,
                           discount: 2.2)
     end
