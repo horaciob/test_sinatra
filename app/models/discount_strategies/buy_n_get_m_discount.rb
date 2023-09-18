@@ -9,7 +9,7 @@ module DiscountStrategies
     end
 
     def apply
-      return if order_item.discount_eligible_quantity < buy
+      return if order_item.nil? || order_item.discount_eligible_quantity < buy
 
       free_products = order_item.discount_eligible_quantity / (buy + free_amount)
       discount_amount = free_products * order_item.original_product_price

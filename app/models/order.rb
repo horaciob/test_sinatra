@@ -19,15 +19,15 @@ class Order < ActiveRecord::Base
   enum status: { open: 'open', closed: 'closed' }
 
   def add_product(product_code:, quantity: 1)
-    return false if status.closed?
+    return false if status == Order.statuses[:closed]
 
     order_item = order_items.find_or_initialize_by(product_code:)
-    order_item.add_more_product(quantity:)
+    order_item.add_more_product(amount: quantity)
     order_item.save
   end
 
   def calculate_total
-    return unless status_changed? && status == 'closed'
+    return unless status_changed? && status == Order.statuses[:closed]
 
     self.total = order_items.sum(:total_price) - order_items.sum(:discount)
   end

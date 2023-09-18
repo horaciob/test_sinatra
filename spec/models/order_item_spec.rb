@@ -7,7 +7,7 @@
 #  id                         :integer          not null, primary key
 #  order_id                   :integer
 #  product_code               :string
-#  quantity                   :integer          default(1)
+#  quantity                   :integer
 #  discount_eligible_quantity :integer
 #  original_product_price     :float
 #  total_price                :float

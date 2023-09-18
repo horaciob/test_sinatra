@@ -4,10 +4,15 @@ ENV['RACK_ENV'] = 'test'
 require_relative '../app'
 
 require 'simplecov'
-require 'simplecov-console'
-SimpleCov.formatter = SimpleCov::Formatter::Console
 
-SimpleCov.start
+SimpleCov.start 'rails' do
+  add_filter 'db/schema.rb'
+  add_filter 'app/controllers/base_controller.rb'
+  add_filter 'spec/**.rb'
+  enable_coverage :branch
+
+  minimum_coverage line: 95, branch: 80
+end
 
 DatabaseCleaner.strategy = :truncation
 

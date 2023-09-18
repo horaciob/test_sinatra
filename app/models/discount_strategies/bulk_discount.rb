@@ -2,9 +2,11 @@
 
 module DiscountStrategies
   class BulkDiscount < Base
-    # operation_type: can be fixed_price or percentage
     class UnknownTypeError < StandardError; end
-    ALLOWED_OPERATIONS = %i[fixed_price percentage].freeze
+
+    PERCENTAGE = :percentage
+    FIXED_PRICE = :fixed_price
+    ALLOWED_OPERATIONS = [PERCENTAGE, FIXED_PRICE].freeze
 
     # If the product cost 5,
     # fixed_price with discount_value of 4.5 will make 0.5 of discount for every product
@@ -18,9 +20,9 @@ module DiscountStrategies
 
     def apply
       raise ::DiscountStrategies::BulkDiscount::UnknownTypeError unless ALLOWED_OPERATIONS.include?(operation_type)
-      return if order_item.discount_eligible_quantity < minimum_amount
+      return if order_item.nil? || order_item.discount_eligible_quantity < minimum_amount
 
-      discount_amount = if operation_type == :fixed_price
+      discount_amount = if operation_type == FIXED_PRICE
                           fixed_price_calculation
                         else
                           percentage_calculation
