@@ -21,6 +21,8 @@ class OrderItem < ActiveRecord::Base
   before_create :initialize_state
   after_save :calculate_totals
 
+  validates :quantity, :original_product_price, :total_price, :discount,
+            numericality: { greater_than_or_equal_to: 0, allow_blank: true }
   def add_more_product(amount:)
     self.quantity = quantity.to_i + amount
     self.discount_eligible_quantity = quantity

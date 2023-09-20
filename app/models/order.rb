@@ -17,6 +17,7 @@ class Order < ActiveRecord::Base
   before_save :calculate_total
 
   enum status: { open: 'open', closed: 'closed' }
+  validates :total, numericality: { greater_than_or_equal_to: 0, allow_blank: true }
 
   def add_product(product_code:, quantity: 1)
     return false if status == Order.statuses[:closed]
